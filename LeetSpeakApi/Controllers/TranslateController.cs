@@ -2,8 +2,9 @@ using LeetSpeak.Abstractions;
 using LeetSpeak.Business.Services;
 using LeetSpeak.Shared;
 using Microsoft.AspNetCore.Mvc;
+using UrlShortening.Shared.Models;
 
-namespace LeetSpeak.Api.Controllers
+namespace LeetSpeak.Api
 {
     [ApiController]
     [Route("translate")]
@@ -24,11 +25,10 @@ namespace LeetSpeak.Api.Controllers
             _translateService = translateService;
         }
 
-        [HttpGet(Name = "AddTranslation")]
-        public IActionResult AddTranslation(string originalText)
+        [HttpGet(Name = "ConvertOriginalTextToFormattedText")]
+        public async Task<IActionResult> ConvertOriginalTextToFormattedText(string originalText)
         {
-            _translateService.AddTranslation(originalText);
-            return Ok("");
+            return await _translateService.ConvertOriginalTextToFormattedText(originalText).GenerateResponse();
         }
     }
 }

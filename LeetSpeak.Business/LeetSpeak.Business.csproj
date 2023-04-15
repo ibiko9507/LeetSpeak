@@ -7,7 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\LeetSpeak.Abstractions\LeetSpeak.Abstractions.csproj" />
+    <ProjectReference Include="..\LeetSpeak.Shared\LeetSpeak.Shared.csproj" />
   </ItemGroup>
 
 </Project>

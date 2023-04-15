@@ -1,7 +1,9 @@
-﻿namespace LeetSpeak.Abstractions
+﻿using UrlShortening.Shared.Models;
+
+namespace LeetSpeak.Abstractions
 {
     public interface ITranslateService
     {
-        Task<string> AddTranslation(string originalUrl);
+        Task<LeetSpeakResponse> ConvertOriginalTextToFormattedText(string originalUrl);
     }
 }
