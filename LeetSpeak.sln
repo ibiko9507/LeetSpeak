@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LeetSpeak.Abstractions", "L
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LeetSpeak.DataAccess", "LeetSpeak.DataAccess\LeetSpeak.DataAccess.csproj", "{551825B1-A8F7-4CC1-8D6B-67092B11B6DA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LeetSpeak.UI", "LeetSpeak.UI\LeetSpeak.UI.csproj", "{BC41A80A-6915-4071-9CB3-4C7184267D0E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{551825B1-A8F7-4CC1-8D6B-67092B11B6DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{551825B1-A8F7-4CC1-8D6B-67092B11B6DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{551825B1-A8F7-4CC1-8D6B-67092B11B6DA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BC41A80A-6915-4071-9CB3-4C7184267D0E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BC41A80A-6915-4071-9CB3-4C7184267D0E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BC41A80A-6915-4071-9CB3-4C7184267D0E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BC41A80A-6915-4071-9CB3-4C7184267D0E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
