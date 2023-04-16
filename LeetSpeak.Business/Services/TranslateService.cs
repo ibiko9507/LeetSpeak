@@ -72,7 +72,9 @@ namespace LeetSpeak.Business.Services
 			bool hasError = false;
 			try
 			{
-				await _translateRepository.GetTranslation();
+				var translations = await _translateRepository.GetTranslation();
+				return ApiResponseConverter.ConvertToLeetSpeakResponse(translations);
+
 			}
 			catch(Exception ex)
 			{
