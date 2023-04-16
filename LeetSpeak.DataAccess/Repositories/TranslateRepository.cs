@@ -24,6 +24,20 @@ namespace LeetSpeak.DataAccess.Repositories
             }
         }
 
+        public async Task<List<Translation>> GetTranslation()
+        {
+			List<Translation> translationList = new List<Translation>();
+            translationList.Add(new Translation() { 
+                CreatingDate = DateTime.Now,
+                CreatingUser = "ibram",
+                FormattedText = "FORMATTEDTEXT",
+                Id = 1,
+                OriginalText = "ORİJİNALTEXTR"
+            });
+
+			return new List<Translation>();
+        }
+
         public void Dispose()
         {
             //

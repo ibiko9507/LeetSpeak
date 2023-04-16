@@ -11,6 +11,9 @@ namespace LeetSpeak.Abstractions
     public interface ITranslateRepository
     {
         Task AddTranslation(Translation translation);
-        void Dispose();
+
+        Task<List<Translation>> GetTranslation();
+
+		void Dispose();
     }
 }

@@ -30,5 +30,12 @@ namespace LeetSpeak.Api
         {
             return await _translateService.ConvertOriginalTextToFormattedText(originalText).GenerateResponse();
         }
-    }
+
+		[HttpGet(Name = "ConvertOriginalTextToFormattedText")]
+		public async Task<IActionResult> GetTranslations(string originalText)
+		{
+            return Ok("");
+			//return await _translateService.GetTranslations(originalText).GenerateResponse();
+		}
+	}
 }

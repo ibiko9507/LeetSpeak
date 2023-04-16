@@ -1,5 +1,7 @@
 ﻿using LeetSpeak.Shared.Constants;
 using LeetSpeak.Shared.Models;
+using Newtonsoft.Json;
+using UrlShortening.Shared.Models;
 
 namespace LeetSpeak.Business.Services
 {
@@ -15,5 +17,24 @@ namespace LeetSpeak.Business.Services
                 CreatingUser = "System" // Dilerseniz buradaki kullanıcı adını güncelleyebilirsiniz
             };
         }
-    }
+		public static LeetSpeakResponse ConvertToLeetSpeakResponse(List<Translation> translations)
+		{
+			LeetSpeakResponse response = new LeetSpeakResponse();
+			try
+			{
+				// translations listesini JSON formatına dönüştürerek ResponseMessage özelliğine atayın
+				response.ResponseMessage = JsonConvert.SerializeObject(translations);
+				response.HasError = false;
+			}
+			catch (Exception ex)
+			{
+				// Hata durumunda response nesnesini doldur
+				response.ResponseMessage = "Çeviri işlemi sırasında bir hata oluştu: " + ex.Message;
+				response.HasError = true;
+			}
+
+			return response;
+		}
+
+	}
 }
