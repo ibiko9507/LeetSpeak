@@ -1,10 +1,10 @@
+using LeetSpeak.DataAccess.Context;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System.Configuration;
 using UrlShortening.Api;
 
 var builder = WebApplication.CreateBuilder(args);
-
-// Add services to the container.
 
 var configuration = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
@@ -13,13 +13,17 @@ var configuration = new ConfigurationBuilder()
 
 builder.Services.RegisterServices(configuration);
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddDbContext<LeetSpeakDbContext>(config =>
+{
+    config.UseNpgsql(configuration.GetConnectionString("DefaultConnection"));
+    config.EnableSensitiveDataLogging();
+});
+
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();

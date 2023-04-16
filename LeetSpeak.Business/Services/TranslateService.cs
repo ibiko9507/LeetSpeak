@@ -9,9 +9,14 @@ namespace LeetSpeak.Business.Services
     {
         #region Properties 
 
+        ITranslateRepository _translateRepository;
 
         #endregion
 
+        public TranslateService(ITranslateRepository translateRepository)
+        {
+            _translateRepository = translateRepository;
+        }
 
         public async Task<LeetSpeakResponse> ConvertOriginalTextToFormattedText(string originalText)
         {
@@ -36,6 +41,9 @@ namespace LeetSpeak.Business.Services
 
                         var apiResponse = JsonConvert.DeserializeObject<ApiResponse>(responseContent);
                         formattedText = apiResponse?.Contents?.Translated;
+
+                        var translation = ApiResponseConverter.ConvertToTranslation(apiResponse);
+                        _translateRepository.AddTranslation(translation);
                     }
                     else
                     {
