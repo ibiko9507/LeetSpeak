@@ -13,7 +13,7 @@ namespace LeetSpeak.UI.Controllers
             _logger = logger;
         }
 
-        public IActionResult Index()
+        public IActionResult Translation()
         {
             return View();
         }
