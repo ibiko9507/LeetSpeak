@@ -31,8 +31,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Scripts\" />
     <Folder Include="wwwroot\js\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\Scripts\Translation.js" />
   </ItemGroup>
 
 </Project>

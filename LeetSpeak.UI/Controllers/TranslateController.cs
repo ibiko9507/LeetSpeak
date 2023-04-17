@@ -4,11 +4,11 @@ using System.Diagnostics;
 
 namespace LeetSpeak.UI.Controllers
 {
-    public class HomeController : Controller
+    public class TranslateController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly ILogger<TranslateController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        public TranslateController(ILogger<TranslateController> logger)
         {
             _logger = logger;
         }

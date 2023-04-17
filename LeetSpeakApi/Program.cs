@@ -1,4 +1,5 @@
 using LeetSpeak.DataAccess.Context;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System.Configuration;
@@ -10,6 +11,28 @@ var configuration = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
                 .Build();
+
+Host.CreateDefaultBuilder(args)
+			   .ConfigureWebHostDefaults(webBuilder =>
+			   {
+				   // CORS ayarlarý
+				   webBuilder.ConfigureKestrel(options =>
+				   {
+					   options.AddServerHeader = false;
+					   options.ListenLocalhost(7253); // veya kullanmak istediðiniz port numarasý
+				   }).UseUrls("https://localhost:7253"); // veya kullanmak istediðiniz URL
+			   });
+
+builder.Services.AddCors(options =>
+{
+	options.AddPolicy("AllowOrigin", builder =>
+	{
+		builder
+			   .AllowAnyMethod()
+			   .AllowAnyHeader()
+			   .AllowAnyOrigin();
+	});
+});
 
 builder.Services.RegisterServices(configuration);
 builder.Services.AddControllers();
@@ -35,5 +58,7 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.UseCors("AllowOrigin"); // CORS ayarlarýný etkinleþtirme
 
 app.Run();

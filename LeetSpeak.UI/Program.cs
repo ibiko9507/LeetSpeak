@@ -1,17 +1,31 @@
+using System.Reflection.PortableExecutable;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddCors(options =>
+{
+	options.AddPolicy("AllowOrigin", builder =>
+	{
+		builder
+			   .AllowAnyMethod()
+			   .AllowAnyHeader()
+			   .AllowAnyOrigin();
+	});
+});
 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
-    app.UseExceptionHandler("/Home/Error");
+    app.UseExceptionHandler("/Translate/Error");
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
+
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
@@ -22,6 +36,8 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Translation}/{id?}");
+    pattern: "{controller=Translate}/{action=Translation}/{id?}");
+
+app.UseCors("AllowOrigin"); // CORS ayarlarýný etkinleþtirme
 
 app.Run();

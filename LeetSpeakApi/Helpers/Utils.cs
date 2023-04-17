@@ -14,7 +14,7 @@ namespace LeetSpeak.Api
                 return new BadRequestObjectResult(response);
             }
 
-            return new OkObjectResult(response);
+            return new JsonResult(response);
         }
     }
 }
