@@ -1,7 +1,9 @@
+using Google.Protobuf.WellKnownTypes;
 using LeetSpeak.DataAccess.Context;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
 using System.Configuration;
 using UrlShortening.Api;
 
@@ -39,9 +41,12 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+
+
+
 builder.Services.AddDbContext<LeetSpeakDbContext>(config =>
 {
-    config.UseNpgsql(configuration.GetConnectionString("DefaultConnection"));
+    config.UseMySql(configuration.GetConnectionString("MySqlConnection"), new MySqlServerVersion(new Version(8, 0, 32)));
     config.EnableSensitiveDataLogging();
 });
 

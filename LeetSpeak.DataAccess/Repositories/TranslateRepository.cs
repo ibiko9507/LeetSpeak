@@ -3,9 +3,12 @@ using LeetSpeak.DataAccess.Context;
 using LeetSpeak.Shared.Constants;
 using LeetSpeak.Shared.Models;
 using Microsoft.EntityFrameworkCore;
-using Npgsql;
+using Microsoft.Extensions.Options;
+using MySql;
+using MySql.Data.MySqlClient;
 using System.Data;
 using System.Data.SqlClient;
+using System.Reflection.PortableExecutable;
 
 namespace LeetSpeak.DataAccess.Repositories
 {
@@ -33,37 +36,13 @@ namespace LeetSpeak.DataAccess.Repositories
 
 			using (var dbContext = new LeetSpeakDbContext(_dbContextOptions))
 			{
-				await dbContext.Database.OpenConnectionAsync();
-				using (var cmd = dbContext.Database.GetDbConnection().CreateCommand())
-				{
-					cmd.CommandText = "get_translations";
-					cmd.CommandType = CommandType.StoredProcedure;
-
-					using (var reader = await cmd.ExecuteReaderAsync())
-					{
-						while (await reader.ReadAsync())
-						{
-							var translation = new Translation
-							{
-								Id = reader.GetInt32(0),
-								OriginalText = reader.GetString(1),
-								FormattedText = reader.GetString(2),
-								CreatingDate = reader.GetDateTime(3),
-								CreatingUser = reader.GetString(4)
-							};
-
-							translations.Add(translation);
-						}
-					}
-				}
-				await dbContext.Database.CloseConnectionAsync();
+				translations = dbContext.Set<Translation>()
+					.FromSqlInterpolated($"CALL Get_Translations")
+					.ToList();
 			}
 
 			return translations;
 		}
-
-
-
 
 		public void Dispose()
 		{
