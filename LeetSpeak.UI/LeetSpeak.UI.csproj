@@ -44,8 +44,4 @@
     <None Include="wwwroot\Scripts\Translation.js" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\LeetSpeak.DataAccess\LeetSpeak.DataAccess.csproj" />
-  </ItemGroup>
-
 </Project>

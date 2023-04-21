@@ -2,7 +2,7 @@ using LeetSpeak.Abstractions;
 using LeetSpeak.Business.Services;
 using LeetSpeak.Shared;
 using Microsoft.AspNetCore.Mvc;
-using UrlShortening.Shared.Models;
+using LeetSpeak.Shared.Models;
 
 namespace LeetSpeak.Api
 {

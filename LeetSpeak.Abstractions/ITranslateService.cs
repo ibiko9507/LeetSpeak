@@ -1,4 +1,4 @@
-﻿using UrlShortening.Shared.Models;
+﻿using LeetSpeak.Shared.Models;
 
 namespace LeetSpeak.Abstractions
 {

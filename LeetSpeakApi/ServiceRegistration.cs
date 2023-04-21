@@ -7,7 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System.IO;
 
-namespace UrlShortening.Api
+namespace LeetSpeak.Api
 {
     public static class ServiceRegistration
     {

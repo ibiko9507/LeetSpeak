@@ -1,7 +1,6 @@
 ﻿using LeetSpeak.Shared.Constants;
 using LeetSpeak.Shared.Models;
 using Newtonsoft.Json;
-using UrlShortening.Shared.Models;
 
 namespace LeetSpeak.Business.Services
 {

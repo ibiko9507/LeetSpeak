@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using UrlShortening.Shared.Models;
+using LeetSpeak.Shared.Models;
 
 namespace LeetSpeak.Api
 {

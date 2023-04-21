@@ -1,7 +1,5 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Identity;
 using System.Reflection.PortableExecutable;
-using LeetSpeak.DataAccess.Context;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,11 +13,6 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
         options.LogoutPath = "/Login/Logout";
     });
 
-builder.Services.AddIdentity<IdentityUser, IdentityRole>()
-        .AddEntityFrameworkStores<LeetSpeakDbContext>()
-        .AddDefaultTokenProviders();
-
-builder.Services.AddScoped<SignInManager<IdentityUser>>();
 
 builder.Services.AddCors(options =>
 {
@@ -38,20 +31,15 @@ var app = builder.Build();
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Translate/Error");
+    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
+
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-
-app.UseEndpoints(endpoints =>
-{
-    endpoints.MapControllerRoute(
-        name: "default",
-        pattern: "{controller=Login}/{action=Login}/{id?}");
-});
 
 app.UseAuthorization();
 

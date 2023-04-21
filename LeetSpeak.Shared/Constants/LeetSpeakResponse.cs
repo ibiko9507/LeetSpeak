@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace UrlShortening.Shared.Models
+namespace LeetSpeak.Shared.Models
 {
     public class LeetSpeakResponse
     {
