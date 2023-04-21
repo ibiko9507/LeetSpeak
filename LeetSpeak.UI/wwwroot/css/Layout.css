@@ -1,0 +1,26 @@
+﻿.bd-placeholder-img {
+    font-size: 3.5rem;
+    text-anchor: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+}
+
+.my-icon {
+    width: 30px;
+    height: 30px;
+    border: 2px solid #000000;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    font-weight: bold;
+    color: #0000FF;
+    background-color: #F0F0F0;
+    margin-right: 12px;
+}
+
+.my-icon-text {
+    margin-top: -4px;
+}

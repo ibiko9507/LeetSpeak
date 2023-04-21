@@ -28,12 +28,18 @@ namespace LeetSpeak.Business.Services
             LoginUserResponse loginUserResponse = new LoginUserResponse()
             {
                 User = new User() { UserName = loginUserRequest.UserName },
-                Token = _tokenService.CreateAccessToken(10) // todo : Ön yüze Sign in ekle. Default page sign in olsun
+                Token = _tokenService.CreateAccessToken(10), // todo : Ön yüze Sign in ekle. Default page sign in olsun
+                IsLoggedIn = true
             };
 
             await _userRepository.AddUserToken(loginUserResponse);
 
             return loginUserResponse; ;
         }
-    }
+
+		public async Task<bool> IsUserLoggedIn()
+		{
+            return false;
+		}
+	}
 }

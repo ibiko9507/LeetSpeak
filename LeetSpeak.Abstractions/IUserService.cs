@@ -10,5 +10,7 @@ namespace LeetSpeak.Abstractions
     public interface IUserService
     {
         Task<LoginUserResponse> Login(LoginUserRequest loginUserRequest);
-    }
+		Task<bool> IsUserLoggedIn();
+
+	}
 }
