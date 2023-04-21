@@ -30,6 +30,7 @@
     <PackageReference Include="jquery.datatables" Version="1.10.15" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Cookies" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.16" />
     <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.16" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.13" />
@@ -42,6 +43,11 @@
 
   <ItemGroup>
     <None Include="wwwroot\Scripts\Translation.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\LeetSpeak.Abstractions\LeetSpeak.Abstractions.csproj" />
+    <ProjectReference Include="..\LeetSpeak.Shared\LeetSpeak.Shared.csproj" />
   </ItemGroup>
 
 </Project>

@@ -12,9 +12,9 @@ namespace LeetSpeak.Api
     {
         #region Properties
         private readonly ITranslateService _translateService;
+        private readonly ILogger<TranslateController> _logger;
         #endregion
 
-        private readonly ILogger<TranslateController> _logger;
 
         public TranslateController(
             ILogger<TranslateController> logger,

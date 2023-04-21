@@ -13,9 +13,12 @@ namespace LeetSpeak.Api
     {
         public static void RegisterServices(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddScoped<ITranslateService, TranslateService>();
+            services.AddScoped<ITranslateService, TranslateService>(); 
             services.AddScoped<ITranslateRepository, TranslateRepository>();
             services.AddScoped<ITranslationFactory, TranslationFactory>();
+            services.AddScoped<ITokenService, TokenService>();
+            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<TranslateValidator>();
         }
     }
