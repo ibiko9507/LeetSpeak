@@ -20,4 +20,8 @@
     <ProjectReference Include="..\LeetSpeak.Shared\LeetSpeak.Shared.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="ApiClient\" />
+  </ItemGroup>
+
 </Project>

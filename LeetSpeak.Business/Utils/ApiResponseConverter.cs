@@ -11,8 +11,8 @@ namespace LeetSpeak.Business.Services
         {
             return new Translation
             {
-                //OriginalText = apiResponse?.Contents?.Or,
-                FormattedText = apiResponse?.Contents?.Translated,
+                OriginalText = apiResponse?.Contents?.text,
+                FormattedText = apiResponse?.Contents?.translated,
                 CreatingDate = DateTime.Now,
                 CreatingUser = "System" // Dilerseniz buradaki kullanıcı adını güncelleyebilirsiniz
             };

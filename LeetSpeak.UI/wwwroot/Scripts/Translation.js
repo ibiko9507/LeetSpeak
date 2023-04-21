@@ -2,29 +2,33 @@ $(document).ready(function () {
     CeviriListele();
 });
 
-$("#translationTable").click(function () {
-    //Save_Arac("https://localhost:7253/translate/gettranslations");
-    //clear();
+$("#translate").click(function () {
+    var originalText = $.trim($("#originalText").val());
+
+    if (originalText == 0) {
+        ShowErrorAlert("Enter the word to translate");
+        $('#originalText').focus();
+    }
+    
+    var data = { OriginalText: $('#originalText').val() };
+    CeviriKaydet(data, GenerateUrl("ConvertOriginalTextToFormattedText"));        
 });
 
-function CallAjax(type, url, data, onsuccess, error) {
-    $.ajax({
-        type: type,
-        url: url,
-        data: data,
-        dataType: "json",
-        contentType: "application/json; charset=utf-8",               
-        success: onsuccess,
-        error: error,
-        async: true,
-        crossDomain: true,
-        xhrFields: {
-            withCredentials: true
-        },
-    });
+function TemizleCeviriTablosu() {
+    $('#translationTable').DataTable().destroy();
 }
+
+function CeviriKaydet(data, url) {
+    CallAjax("GET", url, data, function (response) {
+        ClearTable("translationTable");
+        CeviriListele();
+        ShowSuccessAlert("The translation process has been completed");
+    },
+    function (response) { console.log(response) });
+}
+
 function CeviriListele() {
-    CallAjax("GET", "https://localhost:7253/translate/gettranslations", null,
+    CallAjax("GET", GenerateUrl("gettranslations"), null,
         function (response) {
             var translations = JSON.parse(response.responseMessage);
             var html = null;
@@ -32,26 +36,11 @@ function CeviriListele() {
                 html += "<tr>"
                 html += "<td>" + item.OriginalText + "</td>";
                 html += "<td>" + item.FormattedText + "</td>";
-                html += "<td>" + item.CreatingDate + "</td>";
+                html += "<td>" + FormatDate(item.CreatingDate) + "</td>";
                 html += "</tr>";
             });
             $('#translationList').html(html);
             $('#translationTable').DataTable();
         },
         function (response) { console.log(response) });
-        //todo: Bind iþlemleri Generic yapýlacak
-}
-
-function CeviriListeleOnSuccess(response) {
-    var translations = response;
-    var html = null;
-    $.each(aracListesi, function (index, item) {
-        html += "<tr>"
-        html += "<td>" + 1 + "</td>";
-        html += "<td>" + 1 + "</td>";
-        html += "<td>" + 1 + "</td>";
-        html += "</tr>";
-    });
-    $('#translationList').html(html);
-    $('#translationTable').DataTable();
 }

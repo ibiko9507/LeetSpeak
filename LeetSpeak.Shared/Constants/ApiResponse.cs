@@ -12,7 +12,8 @@ namespace LeetSpeak.Shared.Constants
 
         public class Content
         {
-            public string Translated { get; set; }
-        }
+            public string translated { get; set; }
+            public string text { get; set; }
+		}
     }
 }

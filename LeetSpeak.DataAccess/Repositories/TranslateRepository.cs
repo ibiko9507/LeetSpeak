@@ -25,15 +25,17 @@ namespace LeetSpeak.DataAccess.Repositories
 		{
 			using (var dbContext = new LeetSpeakDbContext(_dbContextOptions))
 			{
-				await dbContext.Translations.AddAsync(translation);
-				await dbContext.SaveChangesAsync();
+				await dbContext.Database.ExecuteSqlRawAsync(
+					"CALL add_translation({0}, {1}, {2})",
+					translation.OriginalText,
+					translation.FormattedText,
+					translation.CreatingUser);
 			}
 		}
 
 		public async Task<List<Translation>> GetTranslation()
 		{
 			var translations = new List<Translation>();
-
 			using (var dbContext = new LeetSpeakDbContext(_dbContextOptions))
 			{
 				translations = dbContext.Set<Translation>()

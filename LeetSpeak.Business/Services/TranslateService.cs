@@ -1,5 +1,6 @@
 ﻿using LeetSpeak.Abstractions;
 using LeetSpeak.Shared.Constants;
+using LeetSpeak.Shared.Models;
 using Newtonsoft.Json;
 using UrlShortening.Shared.Models;
 
@@ -10,18 +11,32 @@ namespace LeetSpeak.Business.Services
 		#region Properties 
 
 		ITranslateRepository _translateRepository;
+		private readonly TranslateValidator _translateValidator;
+		ITranslationFactory _translationFactory;
 
 		#endregion
 
-		public TranslateService(ITranslateRepository translateRepository)
+		public TranslateService(ITranslateRepository translateRepository, TranslateValidator translateValidator, ITranslationFactory translationFactory)
 		{
 			_translateRepository = translateRepository;
+			_translateValidator = translateValidator;
+			_translationFactory = translationFactory;
 		}
 
 		public async Task<LeetSpeakResponse> ConvertOriginalTextToFormattedText(string originalText)
 		{
 			string? formattedText = string.Empty;
 			bool hasError = false;
+
+			var validationResult = await _translateValidator.ValidateAsync(_translationFactory.CreateTranslation(originalText));
+			if (!validationResult.IsValid)
+			{
+				return new LeetSpeakResponse()
+				{
+					ResponseMessage = validationResult.Errors,
+					HasError = true,
+				};
+			}
 
 			try
 			{
@@ -40,7 +55,7 @@ namespace LeetSpeak.Business.Services
 						string responseContent = await response.Content.ReadAsStringAsync();
 
 						var apiResponse = JsonConvert.DeserializeObject<ApiResponse>(responseContent);
-						formattedText = apiResponse?.Contents?.Translated;
+						formattedText = apiResponse?.Contents?.translated;
 
 						var translation = ApiResponseConverter.ConvertToTranslation(apiResponse);
 						_translateRepository.AddTranslation(translation);
@@ -57,7 +72,6 @@ namespace LeetSpeak.Business.Services
 				hasError = true;
 				formattedText = operationException.Message;
 			}
-
 
 			return new LeetSpeakResponse()
 			{
