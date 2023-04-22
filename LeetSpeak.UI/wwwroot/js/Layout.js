@@ -1,11 +1,24 @@
-
+//var userLoggedIn = true;
 $(window).on('load', function () {
-    bindClickEvents();
+    InitiliazeLayout();
 });
 
 $(document).ready(function () {
     ActiveSelectedTab();
 });
+
+function InitiliazeLayout() {
+    var userLoggedIn = true;
+    if (!IsTokenValid()) {
+        userLoggedIn = false;
+        changeBody("/User/Login", userLoggedIn);
+    }
+    else {
+        userLoggedIn = true;
+        changeBody("/Translate/Translation", userLoggedIn);
+    }
+    bindClickEvents();
+}
 
 function changeBody(url) {
     $.ajax({
@@ -25,10 +38,10 @@ $(".change-body-link").click(function ()
     bindClickEvents();
 });
 
-function bindClickEvents() {
-    $('#nav-sign-out').closest('li').css('visibility', 'hidden'); 
-    $('#nav-log-in').closest('li').css('visibility', 'hidden');
-    //$('#nav-translate').closest('li').css('visibility', 'hidden');
+function bindClickEvents(userLoggedIn) {
+    //$('#nav-sign-out').closest('li').css('visibility', 'hidden'); 
+    $('#nav-log-in').closest('li').css('visibility', userLoggedIn ? 'hidden' : 'visible');
+    $('#nav-translate').closest('li').css('visibility', userLoggedIn ? 'visible' : 'hidden');
 }
 
 function ActiveSelectedTab() {

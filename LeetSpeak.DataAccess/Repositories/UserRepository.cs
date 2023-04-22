@@ -29,5 +29,18 @@ namespace LeetSpeak.DataAccess.Repositories
                     userResponse.Token.ExpirationDate);
             }
         }
-    }
+
+		public async Task IsUserLoggedIn(string token)
+		{
+			//using (var dbContext = new LeetSpeakDbContext(_dbContextOptions))
+			//{
+			//	await dbContext.Database.ExecuteSqlRawAsync(
+			//		"CALL add_usertoken({0}, {1}, {2})",
+			//		userResponse.User.UserName,
+			//		userResponse.Token.AccessToken,
+			//		userResponse.Token.ExpirationDate);
+			//}
+		}
+
+	}
 }

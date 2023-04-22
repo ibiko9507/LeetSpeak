@@ -1,4 +1,4 @@
-﻿var rootUrl = "https://localhost:7253/translate/"
+﻿var rootUrl = "https://localhost:7253/"
 
 $(document).ready(function () {
 
@@ -11,16 +11,6 @@ function GenerateUrl(subUrl) {
 function ClearTable(tableId) {
     $("#" + tableId).DataTable().destroy();
 }
-
-function CeviriKaydet(data, url) {
-    CallAjax("GET", url, data, function (response) {
-        TemizleCeviriTablosu();
-        CeviriListele();
-        ShowSuccessAlert("Ceviri islemi tamamlanmistir");
-    },
-        function (response) { console.log(response) });
-}
-
 
 function ShowSuccessAlert(errorMessage) {
     ShowGeneralAlert(errorMessage, "success");
@@ -44,7 +34,7 @@ function ShowGeneralAlert(errorMessage, alertType) {
     });
 
     var alertDiv = $('<div class="alert alert-' + alertType + ' fade show">')
-        .html('<strong>Hata:</strong> ' + errorMessage);
+        .html('<strong>' + alertType + ':</strong> ' + errorMessage);
 
     $('#alert-container').prepend(alertDiv);
 
@@ -74,4 +64,19 @@ function CallAjax(type, url, data, onsuccess, error) {
 
 function FormatDate(date) {
     return moment(date).format("YYYY-MM-DD");
+}
+
+function IsTokenValid() {
+    const token = localStorage.token;
+    if (!token) return false; // Token yoksa geçersizdir.
+
+    try {
+        const decodedToken = jwt_decode(token); // Token'ı çözümle
+        const currentTime = Date.now() / 1000; // Şu anki zamanı saniye cinsinden al
+
+        // Token'ın geçerlilik süresini kontrol et
+        return decodedToken.exp > currentTime;
+    } catch (e) {
+        return false; // Hata oluştuysa geçersizdir.
+    }
 }

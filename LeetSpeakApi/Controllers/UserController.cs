@@ -20,17 +20,17 @@ namespace LeetSpeak.Api.Controllers
             _userService = userService;
         }
 
-        [Route("login")]
-        [HttpPost]
+        [HttpPost("Login")]
         public async Task<IActionResult> Login(LoginUserRequest loginUserRequest)
         {
             var user = await _userService.Login(loginUserRequest);
             return Ok(user);
         }
 
-		public async Task<bool> IsUserLoggedIn()
-		{
-			return await _userService.IsUserLoggedIn();
-		}
-	}
+        [HttpGet("IsUserLoggedIn")]
+        public async Task<bool> IsUserLoggedIn()
+        {
+            return await _userService.IsUserLoggedIn("wowo");
+        }
+    }
 }

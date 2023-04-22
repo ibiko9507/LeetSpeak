@@ -15,7 +15,9 @@ namespace LeetSpeak.UI.Controllers
 
         public IActionResult Translation()
         {
-            return View();
+			var token = TempData["token"] as string;
+
+			return View();
         }
 
         public IActionResult Navbar()

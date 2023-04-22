@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.IdentityModel.Tokens;
 using System.Reflection.PortableExecutable;
 using System.Text;
+using System.Text.Json;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -26,6 +27,23 @@ builder.Services.AddCors(options =>
 			   .AllowAnyOrigin();
 	});
 });
+
+#region IsLoggedIn
+
+builder.Services.AddHttpClient();
+//token
+
+var client = builder.Services.BuildServiceProvider().GetRequiredService<IHttpClientFactory>().CreateClient();
+
+var response = await client.GetAsync("https://localhost:7253/user/IsUserLoggedIn");
+
+if (response.IsSuccessStatusCode)
+{
+	var result = await response.Content.ReadAsStringAsync();
+	var isUserLoggedIn = JsonSerializer.Deserialize<bool>(result);
+}
+
+#endregion IsLoggedIn
 
 builder.Services.AddAuthentication("Admin")
     .AddJwtBearer(options =>
@@ -52,6 +70,7 @@ if (!app.Environment.IsDevelopment())
 }
 
 
+
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
@@ -59,9 +78,9 @@ app.UseRouting();
 
 app.UseAuthorization();
 
-app.MapControllerRoute(
+app.MapControllerRoute( 
     name: "default",
-    pattern: "{controller=Translate}/{action=Translation}/{id?}");
+    pattern: "{controller=Translate}/{action=Translation}/{id?}"); //mvc temp data.
 
 app.UseCors("AllowOrigin"); // CORS ayarlarýný etkinleþtirme
 

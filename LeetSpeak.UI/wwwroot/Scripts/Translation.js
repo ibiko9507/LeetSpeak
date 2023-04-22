@@ -12,7 +12,7 @@ $("#translate").click(function () {
     }
     
     var data = { OriginalText: $('#originalText').val() };
-    CeviriKaydet(data, GenerateUrl("ConvertOriginalTextToFormattedText"));        
+    CeviriKaydet(data, GenerateUrl("translate/ConvertOriginalTextToFormattedText"));        
 });
 
 function TemizleCeviriTablosu() {
@@ -21,15 +21,15 @@ function TemizleCeviriTablosu() {
 
 function CeviriKaydet(data, url) {
     CallAjax("GET", url, data, function (response) {
-        ClearTable("translationTable");
+        TemizleCeviriTablosu();
         CeviriListele();
-        ShowSuccessAlert("The translation process has been completed");
+        ShowSuccessAlert("Ceviri islemi tamamlanmistir");
     },
-    function (response) { console.log(response) });
+        function (response) { console.log(response) });
 }
 
 function CeviriListele() {
-    CallAjax("GET", GenerateUrl("gettranslations"), null,
+    CallAjax("GET", GenerateUrl("translate/gettranslations"), null,
         function (response) {
             var translations = JSON.parse(response.responseMessage);
             var html = null;
