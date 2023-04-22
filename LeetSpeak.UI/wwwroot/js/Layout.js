@@ -8,43 +8,42 @@ $(document).ready(function () {
 });
 
 function InitiliazeLayout() {
-    var userLoggedIn = true;
     if (!IsTokenValid()) {
-        userLoggedIn = false;
-        changeBody("/User/Login", userLoggedIn);
+        changeBody("/User/Login");
+        bindClickEvents();
     }
     else {
-        userLoggedIn = true;
-        changeBody("/Translate/Translation", userLoggedIn);
+        bindClickEvents();
     }
-    //bindClickEvents(userLoggedIn);
 }
 
-function changeBody(url, userLoggedIn) {
+function changeBody(url) {
     $.ajax({
         url: url,
         type: "GET",
         success: function (result) {
             $("body").html(result);
+            bindClickEvents();
         }
     });
-    bindClickEvents(userLoggedIn);
 }
 
-$(".change-body-link").click(function ()
-{
+$(".change-body-link").click(function () {
     ActiveSelectedTab();
     var url = $(this).attr("data-url");
     changeBody(url);
-    bindClickEvents();
 });
 
-function bindClickEvents(userLoggedIn) {
-    if (typeof userLoggedIn != "undefined") {
-        // myVariable tanýmlý deðil
-    //$('#nav-sign-out').closest('li').css('visibility', 'hidden'); 
-        $('#nav-log-in').closest('li').css('visibility', userLoggedIn ? 'hidden' : 'visible');
-        $('#nav-translate').closest('li').css('visibility', userLoggedIn ? 'visible' : 'hidden');
+function bindClickEvents() {
+    var loggedIn = IsTokenValid();
+    if (loggedIn) {
+        $('#nav-sign-out').closest('li').show();
+        $('#nav-log-in').closest('li').hide();
+        $('#nav-translate').closest('li').show();
+    } else {
+        $('#nav-sign-out').closest('li').hide();
+        $('#nav-log-in').closest('li').show();
+        $('#nav-translate').closest('li').hide();
     }
 }
 

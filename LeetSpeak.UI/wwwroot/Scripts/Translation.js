@@ -1,6 +1,5 @@
 $(document).ready(function () {
     CeviriListele();
-    //bindClickEvents(); 
 });
 
 $("#translate").click(function () {
