@@ -21,7 +21,7 @@ namespace LeetSpeak.Business.Services
             _configuration = configuration;
         }
 
-        public TokenResponse CreateAccessToken(int day)
+        public TokenResponse CreateAccessToken(int min)
         {
             TokenResponse tokenResponse = new();
 
@@ -29,7 +29,7 @@ namespace LeetSpeak.Business.Services
 
             SigningCredentials signingCredentials = new(securityKey, SecurityAlgorithms.HmacSha256);
 
-            tokenResponse.ExpirationDate = DateTime.UtcNow.AddMinutes(day);
+            tokenResponse.ExpirationDate = DateTime.Now.AddMinutes(min);
 
             JwtSecurityToken securityToken = new(
                 expires: tokenResponse.ExpirationDate,

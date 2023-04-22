@@ -9,6 +9,6 @@ namespace LeetSpeak.Abstractions
 {
     public interface ITokenService
     {
-        TokenResponse CreateAccessToken(int day);
+        TokenResponse CreateAccessToken(int min);
     }
 }

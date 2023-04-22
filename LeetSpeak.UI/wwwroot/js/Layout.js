@@ -17,10 +17,10 @@ function InitiliazeLayout() {
         userLoggedIn = true;
         changeBody("/Translate/Translation", userLoggedIn);
     }
-    bindClickEvents();
+    //bindClickEvents(userLoggedIn);
 }
 
-function changeBody(url) {
+function changeBody(url, userLoggedIn) {
     $.ajax({
         url: url,
         type: "GET",
@@ -28,6 +28,7 @@ function changeBody(url) {
             $("body").html(result);
         }
     });
+    bindClickEvents(userLoggedIn);
 }
 
 $(".change-body-link").click(function ()
@@ -39,9 +40,12 @@ $(".change-body-link").click(function ()
 });
 
 function bindClickEvents(userLoggedIn) {
+    if (typeof userLoggedIn != "undefined") {
+        // myVariable tanýmlý deðil
     //$('#nav-sign-out').closest('li').css('visibility', 'hidden'); 
-    $('#nav-log-in').closest('li').css('visibility', userLoggedIn ? 'hidden' : 'visible');
-    $('#nav-translate').closest('li').css('visibility', userLoggedIn ? 'visible' : 'hidden');
+        $('#nav-log-in').closest('li').css('visibility', userLoggedIn ? 'hidden' : 'visible');
+        $('#nav-translate').closest('li').css('visibility', userLoggedIn ? 'visible' : 'hidden');
+    }
 }
 
 function ActiveSelectedTab() {

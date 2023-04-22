@@ -71,11 +71,11 @@ function IsTokenValid() {
     if (!token) return false; // Token yoksa geçersizdir.
 
     try {
-        const decodedToken = jwt_decode(token); // Token'ı çözümle
-        const currentTime = Date.now() / 1000; // Şu anki zamanı saniye cinsinden al
+        var decodedToken = KJUR.jws.JWS.parse(token);
+        var expirationDate = new Date(decodedToken.payloadObj.exp * 1000);
+        var now = new Date();
 
-        // Token'ın geçerlilik süresini kontrol et
-        return decodedToken.exp > currentTime;
+        return expirationDate > now;
     } catch (e) {
         return false; // Hata oluştuysa geçersizdir.
     }
