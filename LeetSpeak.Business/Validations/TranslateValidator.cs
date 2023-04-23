@@ -9,9 +9,9 @@ public class TranslateValidator : AbstractValidator<Translation>
 	private readonly ITranslateRepository _translateRepository;
 	//in case we need to do the controlls from database
 
-	public TranslateValidator(ITranslateRepository urlRepository)
+	public TranslateValidator(ITranslateRepository translate)
 	{
-		_translateRepository = urlRepository;
+		_translateRepository = translate;
 
 		RuleFor(customUrl => customUrl)
 			.NotEmpty().WithMessage(UserMessageConstants.TheWordCanNotBeEmpty);
