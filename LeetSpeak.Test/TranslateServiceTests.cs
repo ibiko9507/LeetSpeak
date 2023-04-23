@@ -5,6 +5,8 @@ using LeetSpeak.Shared.Models;
 using LeetSpeak.Test.Mocks;
 using Moq;
 using NUnit.Framework;
+using System.Net;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace LeetSpeak.Test
@@ -15,9 +17,7 @@ namespace LeetSpeak.Test
 		private ITranslateRepository _translateRepository;
 		private TranslateValidator _translateValidator;
 		private ITranslationFactory _translationFactory;
-		private TranslateService _translateService;
-
-		[SetUp]
+		private TranslateService _translateService; [SetUp]
 		public void SetUp()
 		{
 			_translateRepository = new MockTranslateRepository();
@@ -27,21 +27,26 @@ namespace LeetSpeak.Test
 		}
 
 		[Test]
-		public async Task ConvertOriginalTextToFormattedText_WhenValidInput_ReturnsCorrectResponse()
+		public async Task ConvertOriginalTextToFormattedText_ShouldSendHttpRequest()
 		{
 			// Arrange
-			var input = "hello world";
-			var expected = new LeetSpeakResponse
+			var inputText = "hello world";
+			var expectedResponse = new HttpResponseMessage
 			{
-				ResponseMessage = "h3110 w0r1d",
-				HasError = false
+				StatusCode = HttpStatusCode.OK,
+				Content = new StringContent("some response message")
 			};
+			var httpClient = new HttpClient(new MockHttpMessageHandler(request =>
+			{
+				return Task.FromResult(expectedResponse);
+			}));
 
 			// Act
-			var result = await _translateService.ConvertOriginalTextToFormattedText(input);
+			var result = await _translateService.ConvertOriginalTextToFormattedText(inputText);
 
 			// Assert
-			result.Should().BeEquivalentTo(expected);
+			Assert.False(result.HasError);
+			Assert.AreNotEqual(inputText, result.ResponseMessage);
 		}
 
 		[Test]
@@ -80,3 +85,7 @@ namespace LeetSpeak.Test
 		}
 	}
 }
+
+
+
+

@@ -36,12 +36,5 @@ namespace LeetSpeak.Business.Services
 
             return loginUserResponse; ;
         }
-
-		public async Task<bool> IsUserLoggedIn(string token)
-		{
-			await _userRepository.IsUserLoggedIn(token);
-
-			return false;
-		}
 	}
 }

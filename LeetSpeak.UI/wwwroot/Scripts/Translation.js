@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    CeviriListele();
+    ListTranslation();
 });
 
 $("#translate").click(function () {
@@ -11,23 +11,32 @@ $("#translate").click(function () {
     }
     
     var data = { OriginalText: $('#originalText').val() };
-    CeviriKaydet(data, GenerateUrl("translate/ConvertOriginalTextToFormattedText"));        
+    AddTranslation(data, GenerateUrl("translate/ConvertOriginalTextToFormattedText"));        
 });
 
 function TemizleCeviriTablosu() {
     $('#translationTable').DataTable().destroy();
 }
 
-function CeviriKaydet(data, url) {
+function AddTranslation(data, url) {
     CallAjax("GET", url, data, function (response) {
-        TemizleCeviriTablosu();
-        CeviriListele();
-        ShowSuccessAlert("Ceviri islemi tamamlanmistir");
+        OnAddTranslationSuccess();
     },
-        function (response) { console.log(response) });
+        function (response) { OnAddTranslationError(response);});
 }
 
-function CeviriListele() {
+function OnAddTranslationSuccess() {
+    TemizleCeviriTablosu();
+    ListTranslation();
+    ShowSuccessAlert("Ceviri islemi tamamlanmistir");
+}
+
+function OnAddTranslationError(response) {
+    ShowErrorAlert(response.responseJSON.responseMessage);
+    console.log(response);
+}
+
+function ListTranslation() {
     CallAjax("GET", GenerateUrl("translate/gettranslations"), null,
         function (response) {
             var translations = JSON.parse(response.responseMessage);

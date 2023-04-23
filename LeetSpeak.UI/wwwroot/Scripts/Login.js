@@ -4,23 +4,24 @@ $("#loginButton").click(function (event) {
         Password: $("#password").val(),
     };
 
-    Login(loginUserRequest, GenerateUrl("user/login"));    
+    Login(loginUserRequest, GenerateUrl("user/login"));
 });
 
 function Login(data, url) {
     CallAjax("POST", url, JSON.stringify(data), function (response) {
         OnLoginSuccess(response, data);
-        ShowSuccessAlert("Login process has been completed");
     },
-        function (response) { console.log(response) });
+        function (response) { OnLoginError(response); });
 }
 
-function OnLoginSuccess(response, data) {
-    localStorage.setItem("token", response.token.accessToken);
-    localStorage.setItem("ExpirationDate", JSON.stringify(response.token.expirationDate));
+async function OnLoginSuccess(response, data) {
+    await localStorage.setItem("token", response.token.accessToken);
+    await localStorage.setItem("ExpirationDate", JSON.stringify(response.token.expirationDate));
     InitiliazeLayout();
+    await changeBody("/Translate/Translation");
+    ShowSuccessAlert("Login process has been completed");
 }
 
-function OnLoginError() {
-    console.log("xýrremeError");
+function OnLoginError(response) {
+    ShowSuccessAlert("Login process has completed with and error\n" + "" + JSON.stringify(response));
 }

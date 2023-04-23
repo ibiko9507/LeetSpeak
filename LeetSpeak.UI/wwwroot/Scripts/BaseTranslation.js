@@ -29,12 +29,12 @@ function ShowWarningAlert(errorMessage) {
 }
 
 function ShowGeneralAlert(errorMessage, alertType) {
-    $('.alert').slideUp(010, function () {
+    $('.alert').slideUp(030, function () {
         $(this).remove();
     });
 
     var alertDiv = $('<div class="alert alert-' + alertType + ' fade show">')
-        .html('<strong>' + alertType + ':</strong> ' + errorMessage);
+        .html('<strong>' + "Info" + ':</strong> ' + errorMessage);
 
     $('#alert-container').prepend(alertDiv);
 
@@ -79,4 +79,11 @@ function IsTokenValid() {
     } catch (e) {
         return false; // Hata oluştuysa geçersizdir.
     }
+}
+
+function reloadPage() {
+    return new Promise((resolve, reject) => {
+        location.reload();
+        resolve();
+    });
 }

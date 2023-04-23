@@ -10,6 +10,5 @@ namespace LeetSpeak.Abstractions
     public interface IUserRepository
     {
         Task AddUserToken(LoginUserResponse userResponse);
-		Task IsUserLoggedIn(string token);
 	}
 }

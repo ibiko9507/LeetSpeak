@@ -26,11 +26,5 @@ namespace LeetSpeak.Api.Controllers
             var user = await _userService.Login(loginUserRequest);
             return Ok(user);
         }
-
-        [HttpGet("IsUserLoggedIn")]
-        public async Task<bool> IsUserLoggedIn()
-        {
-            return await _userService.IsUserLoggedIn("wowo");
-        }
     }
 }

@@ -34,16 +34,5 @@ namespace LeetSpeak.Test.Mocks.Repositories
 
 			return Task.CompletedTask;
 		}
-
-		public Task IsUserLoggedIn(string token)
-		{
-			var userToken = _userTokens.FirstOrDefault(ut => ut.AccessToken == token);
-			if (userToken == null)
-			{
-				throw new Exception("UserNotFound");
-			}
-
-			return Task.CompletedTask;
-		}
 	}
 }

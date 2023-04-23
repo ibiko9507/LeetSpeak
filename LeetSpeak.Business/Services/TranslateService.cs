@@ -61,7 +61,7 @@ namespace LeetSpeak.Business.Services
 					}
 					else
 					{
-						formattedText = "";
+						formattedText = response.ReasonPhrase;
 						hasError = true;
 					}
 				}
@@ -87,7 +87,6 @@ namespace LeetSpeak.Business.Services
 			{
 				var translations = await _translateRepository.GetTranslation();
 				return ApiResponseConverter.ConvertToLeetSpeakResponse(translations);
-
 			}
 			catch(Exception ex)
 			{

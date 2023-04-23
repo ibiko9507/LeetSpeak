@@ -42,25 +42,5 @@ namespace LeetSpeak.Test
 
 			Assert.ThrowsAsync<Exception>(() => _userService.Login(loginUserRequest));
 		}
-
-		[Test]
-		public async Task IsUserLoggedIn_WithValidToken_ReturnsTrue()
-		{
-			var token = "valid-token";
-
-			var result = await _userService.IsUserLoggedIn(token);
-
-			Assert.IsTrue(result);
-		}
-
-		[Test]
-		public async Task IsUserLoggedIn_WithInvalidToken_ReturnsFalse()
-		{
-			var token = "invalid-token";
-
-			var result = await _userService.IsUserLoggedIn(token);
-
-			Assert.IsFalse(result);
-		}
 	}
 }
